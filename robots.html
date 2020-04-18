@@ -493,7 +493,7 @@ blue,red
         var robot2 = new Robot("#6469AD", "#009a9E", "fat")
         var comic = textAreas.value.split('\n')
         var bground = SVG("image")
-        bground.setAttribute('href', comic[0]);
+        bground.setAttribute('href', "img/"+comic[0]);
         bground.setAttribute("width", "100%")
         frame.appendChild(bground)
         chars = comic[1].split(",")
