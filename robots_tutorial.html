@@ -15,7 +15,6 @@
         svg {
             font-family: "Helvetica", "Arial", sans-serif;
         }
-        <style>
         #rarm {
             transform: scaleX(-.1);
         }
@@ -92,8 +91,7 @@ red"Remember click submit to 'run' it"
                 </svg>
             </div>    
             <div class="col-sm-4">
-                <textarea id="textarea3" rows="12" cols="40">
-                </textarea>
+                <textarea id="textarea3" rows="12" cols="40"></textarea>
                 <button class="btn btn-primary" onclick="submitText('svg03','textarea3') ">Submit</button>
             </div><!-- col -->   
             
@@ -133,8 +131,7 @@ red"blue"
             </div>    
             <div class="col-sm-4">
                 <textarea id="textarea5" rows="12" cols="40">
-kitchen.png                    
-                </textarea>
+kitchen.png</textarea>
                 <button class="btn btn-primary" onclick="submitText('svg05','textarea5') ">Submit</button>
             </div><!-- col -->   
             
@@ -154,8 +151,7 @@ kitchen.png
 kitchen.png
 red
 red"Good.The first line sets the background. The second adds the robots":happy:eyesright
-red"The followin lines are the lines you want us to speek. Have a look at the text on the right and make making blue say hello"                    
-                </textarea>
+red"The followin lines are the lines you want us to speek. Have a look at the text on the right and make making blue say hello"</textarea>
                 <button class="btn btn-primary" onclick="submitText('svg06','textarea6') ">Submit</button>
             </div><!-- col -->   
             
@@ -173,8 +169,7 @@ red"The followin lines are the lines you want us to speek. Have a look at the te
             <div class="col-sm-4">
                 <textarea id="textarea7" rows="12" cols="40">
 kitchen.png
-blue                   
-                </textarea>
+blue</textarea>
                 <button class="btn btn-primary" onclick="submitText('svg07','textarea7') ">Submit</button>
             </div><!-- col -->   
             
@@ -205,7 +200,7 @@ blue
 
     function submitText(svgId, textId) {
         var elm = document.getElementById(svgId);
-        console.log(svgId)
+        //console.log(svgId)
         var frame = SVG("g");
         while (frame.firstChild) {
             frame.removeChild(frame.firstChild);
@@ -213,9 +208,11 @@ blue
         elm.appendChild(frame)
         // Set background
         var textAreas = document.getElementById(textId);
+        console.log(textAreas.value)
         var comic = textAreas.value.split('\n')
         if (comic.length>0){
             var bground = SVG("image")
+            console.log(comic[0])
             bground.setAttribute('href', "img/"+comic[0]);
             bground.setAttribute("width", "100%")
             frame.appendChild(bground)
@@ -223,7 +220,7 @@ blue
         
         
         // Create robots
-        //console.log("bots0")
+        console.log("bots0")
         var robots={
             red:{
                 order:0, 
@@ -234,7 +231,7 @@ blue
                 bot:new Robot("#6469AD", "#009a9E", "fat")
                 },
         }
-        //console.log("bots1")
+        console.log("bots1")
         
         // Speech and expressions
         if(comic.length>1){
@@ -244,6 +241,7 @@ blue
             for (c = 0; c < chars.length; c++) {
                 var key = chars[c].trim()
                 robots[key].order = c;
+                console.log(key)
                 frame.appendChild(robots[key].bot.robotGroup);
                 height = robots[key].bot.robotGroup.getBBox().height
                 robots[key].bot.position(height, 10 + (c*360), 300)
