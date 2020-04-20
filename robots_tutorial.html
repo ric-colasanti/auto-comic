@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <title>The Robots</title>
+
+    <style>
+        #rarm {
+            transform: scaleX(-.1);
+        }
+
+        svg {
+            font-family: "Helvetica", "Arial", sans-serif;
+        }
+        <style>
+        #rarm {
+            transform: scaleX(-.1);
+        }
+
+        svg {
+            font-family: "Helvetica", "Arial", sans-serif;
+        }
+
+        .jumbotron {
+            background-image: url("img/living.jpg");
+            background-size: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron" >
+            <div style="background-color: aliceblue;width:500px; padding-left:10px;padding-bottom:1px">
+                <h1>The Robots</h1>  
+                <p>The tutorial</p>
+            </div>    
+          </div>        
+        
+        <!-- A panel and text box-->
+        <div class="row">
+            <div class="col-sm-8">
+                <svg id="svg01" width="540" height="300" style="border-style: solid;">
+                </svg>
+            </div>    
+            <div class="col-sm-4">
+                <textarea id="textarea1" rows="12" cols="40">
+living.jpg
+red,blue 
+red"We are the robots":happy
+blue"You can program us by typing commands in to the text box on the right":eyesright
+red"You run the program by clicking the submit"
+                </textarea>
+                <button class="btn btn-primary" onclick="submitText('svg01','textarea1') ">Submit</button>
+            </div><!-- col -->   
+            
+     
+        </div><!-- row-->
+        <br>
+
+
+
+        <!-- A panel and text box-->
+        <div class="row">
+            <div class="col-sm-8">
+                <svg id="svg02" width="540" height="300" style="border-style: solid;">
+                </svg>
+            </div>    
+            <div class="col-sm-4">
+                <textarea id="textarea2" rows="12" cols="40">
+kitchen.png
+red
+red"In the text box you will see that the first line contains the background. There are two backgrounds living.jpg and kitchen.png":happy:eyesright
+red"Have a go at setting the background below to kitchen.png"                    
+red"Remember click submit to 'run' it"                    
+                </textarea>
+                <button class="btn btn-primary" onclick="submitText('svg02','textarea2') ">Submit</button>
+            </div><!-- col -->   
+            
+     
+        </div><!-- row-->
+        <br>
+
+
+        <!-- A panel and text box-->
+        <div class="row">
+            <div class="col-sm-8">
+                <svg id="svg03" width="540" height="300" style="border-style: solid;">
+                </svg>
+            </div>    
+            <div class="col-sm-4">
+                <textarea id="textarea3" rows="12" cols="40">
+                </textarea>
+                <button class="btn btn-primary" onclick="submitText('svg03','textarea3') ">Submit</button>
+            </div><!-- col -->   
+            
+     
+        </div><!-- row-->
+        <br>
+
+
+        <!-- A panel and text box-->
+        <div class="row">
+            <div class="col-sm-8">
+                <svg id="svg04" width="540" height="300" style="border-style: solid;">
+                </svg>
+            </div>    
+            <div class="col-sm-4">
+                <textarea id="textarea4" rows="12" cols="40">
+kitchen.png
+red
+red"Good":happy
+red"Now in the next panel add blue"
+red"Just add the word blue in the second line. Must be lowercase"
+red"blue"                    
+                </textarea>
+                <button class="btn btn-primary" onclick="submitText('svg04','textarea4') ">Submit</button>
+            </div><!-- col -->   
+            
+     
+        </div><!-- row-->
+        <br>
+
+
+        <!-- A panel and text box-->
+        <div class="row">
+            <div class="col-sm-8">
+                <svg id="svg05" width="540" height="300" style="border-style: solid;">
+                </svg>
+            </div>    
+            <div class="col-sm-4">
+                <textarea id="textarea5" rows="12" cols="40">
+kitchen.png                    
+                </textarea>
+                <button class="btn btn-primary" onclick="submitText('svg05','textarea5') ">Submit</button>
+            </div><!-- col -->   
+            
+     
+        </div><!-- row-->
+        <br>
+
+
+        <!-- A panel and text box-->
+        <div class="row">
+            <div class="col-sm-8">
+                <svg id="svg06" width="540" height="300" style="border-style: solid;">
+                </svg>
+            </div>    
+            <div class="col-sm-4">
+                <textarea id="textarea6" rows="12" cols="40">
+kitchen.png
+red
+red"Good.The first line sets the background. The second adds the robots":happy:eyesright
+red"The followin lines are the lines you want us to speek. Have a look at the text on the right and make making blue say hello"                    
+                </textarea>
+                <button class="btn btn-primary" onclick="submitText('svg06','textarea6') ">Submit</button>
+            </div><!-- col -->   
+            
+     
+        </div><!-- row-->
+        <br>
+
+
+        <!-- A panel and text box-->
+        <div class="row">
+            <div class="col-sm-8">
+                <svg id="svg07" width="540" height="300" style="border-style: solid;">
+                </svg>
+            </div>    
+            <div class="col-sm-4">
+                <textarea id="textarea7" rows="12" cols="40">
+kitchen.png
+blue                   
+                </textarea>
+                <button class="btn btn-primary" onclick="submitText('svg07','textarea7') ">Submit</button>
+            </div><!-- col -->   
+            
+     
+        </div><!-- row-->
+        <br>
+
+
+
+</div> <!-- container -->
+<!-- <p>This work took insparation from <a href="https://www.kesiev.com/stripthis/">Strip this</a></p>
+<p>A large part of the SVG coding for the Robots was taken from <a href="https://codepen.io/wattenberger/pen/Bksoc">Wattenberger</a>. Many thanks. </p>
+<p>The <a href="https://www.beano.com/posts/number-jokes">BEANO</a> was the basis of the number joke.</p>
+<p>The backgrounds are open source from <a href="https://www.needpix.com/photo/514692/kitchen-room-kitchen-interior-appliance-furnitures-cupboard-cabinets-stove-table">Needpix</a> and <a href="https://www.nextdayblinds.com/ndb-flickr/">NextDayBlinds.</a></p> -->
+</body>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<script src="js/robot.js"></script>
+<script>
+    if(typeof(String.prototype.trim) === "undefined"){
+        String.prototype.trim = function(){
+            return String(this).replace(/^\s+|\s+$/g, '');
+        };
+    }
+
+    function submitText(svgId, textId) {
+        var elm = document.getElementById(svgId);
+        console.log(svgId)
+        var frame = SVG("g");
+        while (frame.firstChild) {
+            frame.removeChild(frame.firstChild);
+        }
+        elm.appendChild(frame)
+        // Set background
+        var textAreas = document.getElementById(textId);
+        var comic = textAreas.value.split('\n')
+        if (comic.length>0){
+            var bground = SVG("image")
+            bground.setAttribute('href', "img/"+comic[0]);
+            bground.setAttribute("width", "100%")
+            frame.appendChild(bground)
+        }
+        
+        
+        // Create robots
+        //console.log("bots0")
+        var robots={
+            red:{
+                order:0, 
+                bot:new Robot("#94627D", "#657F8E", "thin")
+                },            
+            blue:{
+                order:0, 
+                bot:new Robot("#6469AD", "#009a9E", "fat")
+                },
+        }
+        //console.log("bots1")
+        
+        // Speech and expressions
+        if(comic.length>1){
+            chars = comic[1].split(",")
+            var pos = 10
+            var c = 0
+            for (c = 0; c < chars.length; c++) {
+                var key = chars[c].trim()
+                robots[key].order = c;
+                frame.appendChild(robots[key].bot.robotGroup);
+                height = robots[key].bot.robotGroup.getBBox().height
+                robots[key].bot.position(height, 10 + (c*360), 300)
+            }
+            if(comic.length>2){
+                for (i = 2; i < comic.length; i++) {
+                    scomic = comic[i].split('"');
+                    var key = scomic[0].trim()
+                    //console.log(key)
+                    if(robots[key]!=undefined){
+                        //console.log(scomic[1])
+                        var speechBubble = new SpeechBubble(scomic[1], robots[key].bot.bodyColor)
+                        frame.appendChild(speechBubble.group)
+                        var xPos = 160
+                        if (robots[key].order == 1) {
+                            xPos = 190
+                        }
+                        speechBubble.group.setAttribute("transform", "translate(" + xPos + "," + pos + ")")
+                        pos += speechBubble.group.getBBox().height + 20
+                        expressions = comic[i].split(":")
+                        for (e in expressions) {
+                            robots[key].bot.expression(expressions[e]);
+                        }
+                    }
+                }    
+            }
+        }    
+    }
+
+
+
+    submitText("svg01","textarea1");
+    submitText("svg02","textarea2");
+    submitText("svg04","textarea4");
+    submitText("svg05","textarea5");
+    submitText("svg06","textarea6");
+    submitText("svg07","textarea7");
+
+</script>
+
+</html>
