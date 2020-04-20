@@ -178,7 +178,7 @@ blue"You are a joke telling machine!":happy:eyesup
         var c = 0
         for (c = 0; c < chars.length; c++) {
             var key = chars[c].trim()
-            robots[key].order = c+1;
+            robots[key].order = c;
             frame.appendChild(robots[key].bot.robotGroup);
             height = robots[key].bot.robotGroup.getBBox().height
             robots[key].bot.position(height, 10 + (c*360), 300)
