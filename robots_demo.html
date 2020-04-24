@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <title>The Robots</title>
+
+    <style>
+        #rarm {
+            transform: scaleX(-.1);
+        }
+
+        svg {
+            font-family: "Helvetica", "Arial", sans-serif;
+        }
+        #rarm {
+            transform: scaleX(-.1);
+        }
+
+        svg {
+            font-family: "Helvetica", "Arial", sans-serif;
+        }
+
+        .jumbotron {
+            background-image: url("img/living.jpg");
+            background-size: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron" >
+            <div style="background-color: aliceblue;width:500px; padding-left:10px;padding-bottom:1px">
+                <h1>The Robots</h1>  
+                <p>The demo</p>
+            </div>    
+          </div>        
+        
+        <!-- A panel and text box-->
+        <div class="row">
+            <div class="col-sm-8">
+                <svg id="svg01" width="540" height="300">
+                </svg>
+            </div>    
+            <div class="col-sm-4">
+                <textarea id="textarea1" rows="12" cols="40">
+living.jpg
+red,blue 
+red"We are the robots":happy
+blue"You can program us by typing commands in to the text box on the right":eyesright
+red"You run the program by clicking the submit"
+                </textarea>
+                <button class="btn btn-primary" onclick="submitText('svg01','textarea1') ">Submit</button>
+            </div><!-- col -->   
+            
+     
+        </div><!-- row-->
+        <br>
+
+
+
+        <div class="row">
+            <div class="col-sm-8">
+                
+        <canvas id="canvas" width="540" height="300"></canvas>
+    </div>    
+    <div class="col-sm-4">
+        <h3>A bit map Image</h3>
+        <p>Right click on image to save</p>
+
+     
+        </div><!-- row-->
+        <br>
+
+
+ 
+
+
+
+</div> <!-- container -->
+<!-- <p>This work took insparation from <a href="https://www.kesiev.com/stripthis/">Strip this</a></p>
+<p>A large part of the SVG coding for the Robots was taken from <a href="https://codepen.io/wattenberger/pen/Bksoc">Wattenberger</a>. Many thanks. </p>
+<p>The <a href="https://www.beano.com/posts/number-jokes">BEANO</a> was the basis of the number joke.</p>
+<p>The backgrounds are open source from <a href="https://www.needpix.com/photo/514692/kitchen-room-kitchen-interior-appliance-furnitures-cupboard-cabinets-stove-table">Needpix</a> and <a href="https://www.nextdayblinds.com/ndb-flickr/">NextDayBlinds.</a></p> -->
+</body>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<script src="js/robot.js"></script>
+<script>
+    if(typeof(String.prototype.trim) === "undefined"){
+        String.prototype.trim = function(){
+            return String(this).replace(/^\s+|\s+$/g, '');
+        };
+    }
+    function saveSvg(svgEl, name) {
+        svgEl.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+        var svgData = svgEl.outerHTML;
+        var preface = '<?xml version="1.0" standalone="no"?>\r\n';
+        var svgBlob = new Blob([preface, svgData], {type:"image/svg+xml;charset=utf-8"});
+        var svgUrl = URL.createObjectURL(svgBlob);
+        var downloadLink = document.createElement("a");
+        downloadLink.href = svgUrl;
+        downloadLink.download = name;
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+    }
+
+
+    function toImage(svgId){
+        var svgString = new XMLSerializer().serializeToString(document.getElementById(svgId));
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+        var DOMURL = self.URL || self.webkitURL || self;
+        var img = new Image();
+        var svg = new Blob([svgString], {type: "image/svg+xml;charset=utf-8"});
+        var url = DOMURL.createObjectURL(svg);
+        img.onload = function() {
+            var bgImg = new Image();
+            bgImg.src = 'img/living.jpg';
+            ctx.drawImage(bgImg, 0, 0,540,335);
+            ctx.drawImage(img, 0, 0);
+            var png = canvas.toDataURL("image/png");
+            document.querySelector('#png-container').innerHTML = '<img src="'+png+'"/>';
+            DOMURL.revokeObjectURL(png);
+        };
+        img.src = url;        
+    }
+
+
+    function save(svgId){
+        var elm = document.getElementById(svgId);
+        saveSvg(elm,"test.txt");
+    }
+    function submitText(svgId, textId) {
+        var elm = document.getElementById(svgId);
+        //console.log(svgId)
+        var frame = SVG("g");
+        while (frame.firstChild) {
+            frame.removeChild(frame.firstChild);
+        }
+        
+        // Set background
+        var textAreas = document.getElementById(textId);
+        console.log(textAreas.value)
+        var comic = textAreas.value.split('\n')
+        if (comic.length>0){
+            var bground = SVG("image")
+            console.log(comic[0])
+            bground.setAttribute('href', "img/"+comic[0]);
+            bground.setAttribute("width", "100%")
+            frame.appendChild(bground)
+        }
+        elm.appendChild(frame)
+        
+        // Create robots
+        console.log("bots0")
+        var robots={
+            red:{
+                order:0, 
+                bot:new Robot("#94627D", "#657F8E", "thin")
+                },            
+            blue:{
+                order:0, 
+                bot:new Robot("#6469AD", "#009a9E", "fat")
+                },
+        }
+        console.log("bots1")
+        
+        // Speech and expressions
+        if(comic.length>1){
+            chars = comic[1].split(",")
+            var pos = 10
+            var c = 0
+            for (c = 0; c < chars.length; c++) {
+                var key = chars[c].trim()
+                robots[key].order = c;
+                console.log(key)
+                frame.appendChild(robots[key].bot.robotGroup);
+                height = robots[key].bot.robotGroup.getBBox().height
+                robots[key].bot.position(height, 10 + (c*360), 300)
+            }
+            if(comic.length>2){
+                for (i = 2; i < comic.length; i++) {
+                    scomic = comic[i].split('"');
+                    var key = scomic[0].trim()
+                    //console.log(key)
+                    if(robots[key]!=undefined){
+                        //console.log(scomic[1])
+                        var speechBubble = new SpeechBubble(scomic[1], robots[key].bot.bodyColor)
+                        frame.appendChild(speechBubble.group)
+                        var xPos = 160
+                        if (robots[key].order == 1) {
+                            xPos = 190
+                        }
+                        speechBubble.group.setAttribute("transform", "translate(" + xPos + "," + pos + ")")
+                        pos += speechBubble.group.getBBox().height + 20
+                        expressions = comic[i].split(":")
+                        for (e in expressions) {
+                            robots[key].bot.expression(expressions[e]);
+                        }
+                    }
+                }    
+            }
+        }
+        toImage(svgId)
+    }
+
+
+
+
+    submitText("svg01","textarea1");
+    
+
+
+
+</script>
+
+</html>
