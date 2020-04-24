@@ -395,6 +395,8 @@ SpeechBubble = function (text, color) {
     var yPos = 20
     for (l in lines) {
         var speech = SVG("text")
+        speech.setAttribute("font-family","sans-serif")
+        speech.setAttribute("font-size","12px")
         speech.setAttribute("x", 10)
         speech.setAttribute("y", yPos)
         var textNode = document.createTextNode(lines[l]);
