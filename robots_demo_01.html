@@ -97,6 +97,12 @@ red,blue
             </ul>
           </div>
 
+          <div id="menuBack" class="menu-top">
+            <ul>
+                <li onclick="setBackground('kitchen.png')">Kitchen</li>     
+                <li onclick="setBackground('living.jpg')">Living room</li>     
+            </ul>
+          </div>
 
 
 </div> <!-- container -->
@@ -134,6 +140,12 @@ function setExpression(expression){
     itm.style.visibility = 'hidden'
 }
 
+function setBackground(backgroundImage){
+    let bground = document.getElementById("bgrng")
+    bground.setAttribute('href', "img/"+backgroundImage);
+    let itm = document.getElementById("menuBack")
+    itm.style.visibility = 'hidden'
+}
 
 
     function toImage(svgId,backgroundImage){
@@ -175,6 +187,16 @@ function setExpression(expression){
             backgroundImage = comic[0]
             bground.setAttribute('href', "img/"+backgroundImage);
             bground.setAttribute("width", "100%")
+            bground.setAttribute("id","bgrng")
+            bground.addEventListener("click",function(e){
+                var rect = e.target.getBoundingClientRect();
+                xpos = e.clientX//-e.clientX - rect.left
+                ypos = e.clientY//-e.clientX - rect.top
+                let itm = document.getElementById("menuBack")
+                itm.style.visibility = 'visible'
+                itm.style.top = ypos-20+'px'
+                itm.style.left = xpos-20+'px'
+            })
             frame.appendChild(bground)
         }
         elm.appendChild(frame)
