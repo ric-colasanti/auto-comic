@@ -35,12 +35,15 @@
         width: 250px;
         height:200px;
         left:0px; 
-        background-color: #111;
-        color:white;
+        background-color:lightgray;
+        color:black;
         overflow-x: hidden;
         font-size: 20PX;
         visibility: hidden;/* for demo purpose  */
         cursor: pointer;
+    }
+    ul {
+        list-style-type: none;
     }
     </style>
 </head>
@@ -82,8 +85,15 @@ red,blue
 
         <div id="menu" class="menu-top">
             <ul>
-                <li id="happy">Happy</li>     
-                <li id="cross">Cross</li>     
+                <li onclick="setExpression('happy')">Happy</li>     
+                <li onclick="setExpression('cross')">Cross</li>     
+                <li onclick="setExpression('sad')">Sad</li>     
+                <li onclick="setExpression('eyesleft')">Eyes left</li>     
+                <li onclick="setExpression('eyesright')">Eyes right</li>     
+                <li onclick="setExpression('eyesup')">Eyes up</li>     
+                <li onclick="setExpression('eyesdown')">Eyes down</li>     
+                <li onclick="setExpression('headleft')">Headl left</li>     
+                <li onclick="setExpression('headright')">Head right</li>     
             </ul>
           </div>
 
@@ -102,28 +112,29 @@ red,blue
 
 <script src="js/robot.js"></script>
 <script>
-
-var clickFun = function(e,bot){
+var selectBot
+function makeClick(bot){
+    //console.log("make",bot)
+    return function(e){
         var rect = e.target.getBoundingClientRect();
         xpos = e.clientX//-e.clientX - rect.left
         ypos = e.clientY//-e.clientX - rect.top
-        console.log(bot)
         let itm = document.getElementById("menu")
-        let happy = document.getElementById("happy")
-        happy.addEventListener("click",function(){
-            bot.expression("happy")
-            itm.style.visibility = 'hidden'
-        })
-        let cross = document.getElementById("cross")
-        cross.addEventListener("click",function(){
-            bot.expression("cross")
-            itm.style.visibility = 'hidden'
-        })
         itm.style.visibility = 'visible'
         itm.style.top = ypos-20+'px'
         itm.style.left = xpos-20+'px'
-
+        selectBot = bot  
+        console.log(selectBot)     
     }
+
+}
+function setExpression(expression){
+    selectBot.expression(expression)
+    let itm = document.getElementById("menu")
+    itm.style.visibility = 'hidden'
+}
+
+
 
     function toImage(svgId,backgroundImage){
         var svgString = new XMLSerializer().serializeToString(document.getElementById(svgId));
@@ -181,12 +192,9 @@ var clickFun = function(e,bot){
                 },
         }
         console.log("bots1")
-        robots.red.bot.robotGroup.addEventListener("click",function(e){
-            clickFun(e,robots.red.bot)
-        })
-        robots.blue.bot.robotGroup.addEventListener("click",function(e){
-            clickFun(e,robots.blue.bot)
-        })
+        robots.red.bot.robotGroup.addEventListener("click",makeClick(robots.red.bot))
+        console.log("G")
+        robots.blue.bot.robotGroup.addEventListener("click",makeClick(robots.blue.bot))
         // Speech and expressions
         if(comic.length>1){
             chars = comic[1].split(",")
