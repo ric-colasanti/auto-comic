@@ -93,29 +93,12 @@ red"You run the program by clicking the submit"
 
 <script src="js/robot.js"></script>
 <script>
-    if(typeof(String.prototype.trim) === "undefined"){
-        String.prototype.trim = function(){
-            return String(this).replace(/^\s+|\s+$/g, '');
-        };
-    }
-    function saveSvg(svgEl, name) {
-        svgEl.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-        var svgData = svgEl.outerHTML;
-        var preface = '<?xml version="1.0" standalone="no"?>\r\n';
-        var svgBlob = new Blob([preface, svgData], {type:"image/svg+xml;charset=utf-8"});
-        var svgUrl = URL.createObjectURL(svgBlob);
-        var downloadLink = document.createElement("a");
-        downloadLink.href = svgUrl;
-        downloadLink.download = name;
-        document.body.appendChild(downloadLink);
-        downloadLink.click();
-        document.body.removeChild(downloadLink);
-    }
 
 
-    function toImage(svgId){
+    function toImage(svgId,backgroundImage){
         var svgString = new XMLSerializer().serializeToString(document.getElementById(svgId));
         var canvas = document.getElementById("canvas");
+        
         var ctx = canvas.getContext("2d");
         var DOMURL = self.URL || self.webkitURL || self;
         var img = new Image();
@@ -123,23 +106,19 @@ red"You run the program by clicking the submit"
         var url = DOMURL.createObjectURL(svg);
         img.onload = function() {
             var bgImg = new Image();
-            bgImg.src = 'img/living.jpg';
-            ctx.drawImage(bgImg, 0, 0,540,335);
+            bgImg.src = 'img/'+backgroundImage;
+            let ratio = canvas.width/bgImg.width
+            let height = bgImg.height* ratio
+            ctx.drawImage(bgImg, 0, 0,540,height);
             ctx.drawImage(img, 0, 0);
-            var png = canvas.toDataURL("image/png");
-            document.querySelector('#png-container').innerHTML = '<img src="'+png+'"/>';
-            DOMURL.revokeObjectURL(png);
         };
         img.src = url;        
     }
 
 
-    function save(svgId){
-        var elm = document.getElementById(svgId);
-        saveSvg(elm,"test.txt");
-    }
     function submitText(svgId, textId) {
         var elm = document.getElementById(svgId);
+        var backgroundImage;
         //console.log(svgId)
         var frame = SVG("g");
         while (frame.firstChild) {
@@ -152,8 +131,8 @@ red"You run the program by clicking the submit"
         var comic = textAreas.value.split('\n')
         if (comic.length>0){
             var bground = SVG("image")
-            console.log(comic[0])
-            bground.setAttribute('href', "img/"+comic[0]);
+            backgroundImage = comic[0]
+            bground.setAttribute('href', "img/"+backgroundImage);
             bground.setAttribute("width", "100%")
             frame.appendChild(bground)
         }
@@ -209,7 +188,7 @@ red"You run the program by clicking the submit"
                 }    
             }
         }
-        toImage(svgId)
+        toImage(svgId,backgroundImage)
     }
 
 
