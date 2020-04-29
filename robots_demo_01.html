@@ -64,7 +64,7 @@
                 </svg>
                 
             </div>    
-            <div class="col-sm-4">
+            <div class="col-sm-4" style="visibility: hidden;">
                 <textarea id="textarea1" rows="12" cols="40">
 living.jpg
 red,blue 
@@ -85,6 +85,7 @@ red,blue
 
         <div id="menu" class="menu-top">
             <ul>
+                <li onclick="setText(event)">Text</li>     
                 <li onclick="setExpression('happy')">Happy</li>     
                 <li onclick="setExpression('cross')">Cross</li>     
                 <li onclick="setExpression('sad')">Sad</li>     
@@ -104,6 +105,10 @@ red,blue
             </ul>
           </div>
 
+          <div id="text" class="menu-top"style="padding: 3px;">
+        <textarea id="textarea" rows="5" cols="18"autofocus="autofocus" ></textarea>
+        <button class="btn btn-primary" onclick="setBubble()" style="margin:2px";>OK</button>
+          </div>
 
 </div> <!-- container -->
 <!-- <p>This work took insparation from <a href="https://www.kesiev.com/stripthis/">Strip this</a></p>
@@ -119,6 +124,8 @@ red,blue
 <script src="js/robot.js"></script>
 <script>
 var selectBot
+var frame
+var bubbleYPos = 10
 function makeClick(bot){
     //console.log("make",bot)
     return function(e){
@@ -138,6 +145,38 @@ function setExpression(expression){
     selectBot.expression(expression)
     let itm = document.getElementById("menu")
     itm.style.visibility = 'hidden'
+}
+function setText(e){
+    let itm = document.getElementById("textarea")
+    itm.value = ""
+    itm.focus();
+    itm = document.getElementById("text")
+    itm.style.visibility = 'visible'
+    var rect = e.target.getBoundingClientRect();
+        xpos = e.clientX//-e.clientX - rect.left
+        ypos = e.clientY//-e.clientX - rect.top
+        
+        itm.style.visibility = 'visible'
+        itm.style.top = ypos-20+'px'
+        itm.style.left = xpos-20+'px'
+    
+    itm = document.getElementById("menu")
+    itm.style.visibility = 'hidden'
+}
+
+function setBubble(){
+    let itm = document.getElementById("text")
+    itm.style.visibility = 'hidden'
+    
+    itm = document.getElementById("textarea")
+    var speechBubble = new SpeechBubble(itm.value, selectBot.bodyColor)
+    frame.appendChild(speechBubble.group)
+    var xPos = 160
+    if (selectBot.pos == 1) {
+        xPos = 190
+    }
+    speechBubble.group.setAttribute("transform", "translate(" + xPos + "," + bubbleYPos + ")")
+    bubbleYPos += speechBubble.group.getBBox().height + 20
 }
 
 function setBackground(backgroundImage){
@@ -173,7 +212,7 @@ function setBackground(backgroundImage){
         var elm = document.getElementById(svgId);
         var backgroundImage;
         //console.log(svgId)
-        var frame = SVG("g");
+        frame = SVG("g");
         while (frame.firstChild) {
             frame.removeChild(frame.firstChild);
         }
@@ -220,11 +259,11 @@ function setBackground(backgroundImage){
         // Speech and expressions
         if(comic.length>1){
             chars = comic[1].split(",")
-            var pos = 10
             var c = 0
             for (c = 0; c < chars.length; c++) {
                 var key = chars[c].trim()
                 robots[key].order = c;
+                robots[key].bot.pos = c;
                 //console.log(key)
                 frame.appendChild(robots[key].bot.robotGroup);
                 height = robots[key].bot.robotGroup.getBBox().height
@@ -243,8 +282,8 @@ function setBackground(backgroundImage){
                         if (robots[key].order == 1) {
                             xPos = 190
                         }
-                        speechBubble.group.setAttribute("transform", "translate(" + xPos + "," + pos + ")")
-                        pos += speechBubble.group.getBBox().height + 20
+                        speechBubble.group.setAttribute("transform", "translate(" + xPos + "," + bubbleYPos + ")")
+                        bubbleYPos += speechBubble.group.getBBox().height + 20
                         expressions = comic[i].split(":")
                         for (e in expressions) {
                             robots[key].bot.expression(expressions[e]);
