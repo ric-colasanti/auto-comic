@@ -196,6 +196,7 @@ function Robot(bodyColor, armColor, height) {
 
     this.bodyColor = bodyColor;
     this.armColor = armColor;
+    this.pos = 0;
 
     function createArm(bodyColor, armcolor) {
         armGroup = SVG("g");
