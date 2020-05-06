@@ -1,0 +1,308 @@
+:root {
+    --mainBackground: #f5f6f9;
+    --mainDarkGray:#f2f2f2;
+    --mainColor:rgb(109, 164, 209);
+    --mainColorDark:rgb(59, 114, 159);
+    --mainLight:#fff;
+}
+
+
+
+
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 22px;
+    margin: 0px;
+    background-color:var(--mainBackground);
+}
+
+ /* unvisited link */
+ a:link {
+    color:var(--mainColor);;
+    text-decoration: none;
+  }
+  
+  /* visited link */
+  a:visited {
+    color:var(--mainColor);;
+    text-decoration: none;
+  }
+  
+  /* mouse over link */
+  a:hover {
+    color:var(--mainColorDark);;
+    text-decoration: none;
+  }
+  
+  /* selected link */
+  a:active {
+    color:var(--mainColor);;
+    text-decoration: none;
+  } 
+
+.btn {
+    border: none;
+    color: var(--mainLight);
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.success {
+    background-color: #4CAF50;
+}
+
+/* Green */
+.success:hover {
+    background-color: #46a049;
+}
+
+.info {
+    background-color: #2196F3;
+}
+
+/* Blue */
+.info:hover {
+    background: #0b7dda;
+}
+
+.warning {
+    background-color: #ff9800;
+}
+
+/* Orange */
+.warning:hover {
+    background: #e68a00;
+}
+
+.danger {
+    background-color: #f44336;
+}
+
+/* Red */
+.danger:hover {
+    background: #da190b;
+}
+
+.default {
+    background-color: #e7e7e7;
+    color: black;
+}
+
+/* Gray */
+.default:hover {
+    background: #ddd;
+}
+
+
+.header {
+    text-align: center;
+    padding: 32px;
+    display: block;
+    background-color: var(--mainColor);
+    color: var(--mainBackground);
+}
+
+.topnav {
+    overflow: hidden;
+    background-color: var(--mainLight);
+}
+
+.topnav div {
+    float: left;
+    display: block;
+    color: #313131;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.topnav div:hover {
+    background-color:var(--mainDarkGray);
+    color: black;
+    cursor: pointer;
+}
+
+.topnav div.active {
+    color: var(--mainColorDark);
+    font-weight: bold;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid var(--mainLight);
+}
+
+th,
+td {
+    text-align: left;
+    padding: 16px;
+}
+
+tr:nth-child(even) {
+    background-color: var(--mainDarkGray);
+}
+
+.topnav .icon {
+    display: none;
+}
+
+.content {
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Create four equal columns that sits next to each other */
+
+.column-25 {
+    flex: 25%;
+    max-width: 25%;
+
+}
+
+.column-75 {
+    flex: 75%;
+    max-width: 75%;
+    border-width: 0.5px;
+}
+
+.column-20 {
+    flex: 20%;
+    max-width: 20%;
+
+}
+
+.column-80 {
+    flex: 80%;
+    max-width: 80%;
+    border-width: 0.5px;
+}
+
+.card {
+    background-color: var(--mainLight);
+    overflow: hidden;
+    padding-bottom: 0;
+    position: relative;
+    font-size: 1.2vw;
+    margin-top: 10px;
+}
+
+.card__wrapper {
+    padding: 40px;
+}
+
+.card__wrapper_side {
+    padding: 10px;
+}
+
+.card_side {
+    width: 95%;
+    border-radius: 5px;
+}
+
+.card_main {
+    min-height: 60vh;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .25);
+}
+
+.card_task {
+    background-color: #edfaef;
+    overflow-x: auto;
+    position: relative;
+    padding: 10px;
+    width: 100%;
+}
+
+@media screen and (max-width: 600px) {
+    .topnav div:not(:first-child) {
+        display: none;
+    }
+
+    .topnav div.icon {
+        float: right;
+        display: block;
+    }
+
+    .header {
+        display: none;
+    }
+
+    .topnav.responsive {
+        position: relative;
+    }
+
+    .topnav.responsive .icon {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+    .topnav.responsive div {
+        float: none;
+        display: block;
+        text-align: left;
+        cursor: pointer;
+    }
+
+    .responsive div:hover {
+        background-color: var(--mainDarkGray);
+    }
+
+    .content {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    .column-25 {
+        flex: 100%;
+        max-width: 100%;
+        padding-top: 10px;
+    }
+
+    .column-75 {
+        flex: 100%;
+        max-width: 100%;
+    }
+
+    .column-20 {
+        flex: 100%;
+        max-width: 100%;
+        order: 2;
+    }
+
+    .column-80 {
+        order: 1;
+        flex: 100%;
+        max-width: 100%;
+    }
+
+    .card {
+        font-size: 3vw;
+    }
+
+    .card_side {
+        width: 100%;
+    }
+
+    .card__wrapper {
+        padding: 10px;
+    }
+
+    .card_main {
+        box-shadow: 0 0px 0px;
+    }
+}

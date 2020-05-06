@@ -1,0 +1,83 @@
+<style>
+    .header {
+        background-image: url("img/living.jpg");
+        background-size: cover;
+        color: rgb(59, 59, 59)
+    }
+
+    .menu-top {
+        position: absolute;
+        opacity: 0.9;
+        /* for demo purpose  */
+        top: 0;
+        z-index: 9;
+        margin: 0px;
+        width: 250px;
+        height: 200px;
+        left: 0px;
+        background-color: lightgray;
+        color: black;
+        overflow-x: hidden;
+        font-size: 20PX;
+        visibility: hidden;
+        /* for demo purpose  */
+        cursor: pointer;
+    }
+</style>
+
+<div class="header">
+    <h1>The Robots</h1>
+    <p>The demo</p>
+</div>
+
+
+<div id="menu" class="menu-top">
+    <ul>
+        <li onclick="frames[active].setText(event)">Text</li>
+        <li onclick="frames[active].setExpression('happy')">Happy</li>
+        <li onclick="frames[active].setExpression('cross')">Cross</li>
+        <li onclick="frames[active].setExpression('sad')">Sad</li>
+        <li onclick="frames[active].setExpression('eyesleft')">Eyes left</li>
+        <li onclick="frames[active].setExpression('eyesright')">Eyes right</li>
+        <li onclick="frames[active].setExpression('eyesup')">Eyes up</li>
+        <li onclick="frames[active].setExpression('eyesdown')">Eyes down</li>
+        <li onclick="frames[active].setExpression('headleft')">Headl left</li>
+        <li onclick="frames[active].setExpression('headright')">Head right</li>
+    </ul>
+</div>
+
+<div id="menuBack" class="menu-top">
+    <ul>
+        <li onclick="frames[active].setBackground('kitchen.png')">Kitchen</li>
+        <li onclick="frames[active].setBackground('living.jpg')">Living room</li>
+        <li onclick="frames[active].setRobot('red')">Red</li>
+        <li onclick="frames[active].setRobot('blue')">Blue</li>
+    </ul>
+</div>
+
+<div id="text" class="menu-top" style="padding: 3px;">
+    <textarea id="textarea" rows="5" cols="18" autofocus="autofocus"></textarea>
+    <button class="btn btn-primary" onclick="frames[active].setBubble()" style="margin:2px" ;>OK</button>
+</div>
+
+<div class="content">
+    <div class="row">
+        <div class="column-20">
+            <div class="card card_side">
+                <div class="card__wrapper_side">
+
+                </div>
+            </div>
+        </div>
+        <div class="column-80">
+            <div class="card card_main">
+                <div class="card__wrapper">
+                    <div id="main_card">
+                        <svg id="svg01" width="540" height="300"></svg>
+                        <svg id="svg02" width="540" height="300"></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

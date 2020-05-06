@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="img/Robot-icon.png">
+    <title>Robot Demo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+
+<style>
+
+</style>
+</head>
+
+<body>
+    <div class="topnav" id="myTopnav">
+        <div id="home" class="active" onclick="getTemplate('itm','home',test)">Home</div>
+        <div id="test" onclick="getTemplate('itm','test',noFunction)">Test</div>
+        <div id="table" onclick="getTemplate('itm','table',noFunction)">Table</div>
+        <div id="hburger" class="icon" onclick="navFunction()">
+            <i class="fa fa-bars"></i>
+        </div>
+    </div>
+   <div id="itm"></div>
+    <script src="js/main.js"></script>
+    <script src="js/robot.js"></script>
+    <script src="js/frame.js"></script>
+    <script>
+        getTemplate("itm","robot01",frameInit)
+    </script>
+</body>
+
+</html>
