@@ -72,7 +72,7 @@
             <li onclick="frames[active].setBackground('living.jpg')">Living room</li>
             <li onclick="frames[active].setRobot('red')">Red</li>
             <li onclick="frames[active].setRobot('blue')">Blue</li>
-            <!-- <li onclick="frames[active].save('blue')">Save</li> -->
+            <li onclick="frames[active].save()">Save</li>
         </ul>
     </div>
   
@@ -103,8 +103,8 @@
                 <svg id="tsvg04" width="540" height="300" style="border-style: solid;"></svg><br>
             </div>
             <div class="col-sm-6">
-                <canvas id="canvas" width="540" height="300"></canvas>
-            </div>col
+                <button onclick="save()">Save</button>
+            </div>
 
 
         </div><!-- row-->

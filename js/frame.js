@@ -1,6 +1,12 @@
 var active = null
 var frames = []
 var selectBot
+var mainCanvas = document.createElement('canvas');
+mainCanvas.width = 540;
+mainCanvas.height =4*310;
+var mainCtx = mainCanvas.getContext("2d");
+mainCtx.fillStyle = "#ffffff";
+mainCtx.fillRect(0, 0, mainCanvas.width, mainCanvas.height);
 
 function makeFrameClick(id) {
     //console.log("make",bot)
@@ -17,23 +23,7 @@ function makeFrameClick(id) {
 
 }
 
-function download(data, filename, type) {
-    var file = new Blob([data], {type: type});
-    if (window.navigator.msSaveOrOpenBlob) // IE10+
-        window.navigator.msSaveOrOpenBlob(file, filename);
-    else { // Others
-        var a = document.createElement("a"),
-                url = URL.createObjectURL(file);
-        a.href = url;
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-        setTimeout(function() {
-            document.body.removeChild(a);
-            window.URL.revokeObjectURL(url);  
-        }, 0); 
-    }
-}
+
 
 function makeClick(bot) {
     //console.log("make",bot)
@@ -51,9 +41,11 @@ function makeClick(bot) {
 
 }
 
-function toImage(svgId, backgroundImage) {
+function toImage(svgId, backgroundImage, ypos) {
     var svgString = new XMLSerializer().serializeToString(document.getElementById(svgId));
-    var canvas = document.getElementById("canvas");
+    var canvas =  document.createElement('canvas');
+    canvas.height = 300;
+    canvas.width = 540;
     var ctx = canvas.getContext("2d");canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     var DOMURL = self.URL || self.webkitURL || self;
@@ -69,9 +61,9 @@ function toImage(svgId, backgroundImage) {
         let height = bgImg.height * ratio
         ctx.drawImage(bgImg, 0, 0, 540, height);
         ctx.drawImage(img, -1, -1);
+        mainCtx.drawImage(canvas, 0, ypos);
     };
     img.src = url;
-    download(svg,"test.png",'image/png')
 }
 class Frame {
     constructor(svgid, id) {
@@ -112,6 +104,7 @@ class Frame {
             bground.addEventListener("click", makeFrameClick(this.id))
             this.frame.appendChild(bground)
             elm.appendChild(this.frame)
+            toImage(this.svgid, this.backgroundImage,this.id*310); 
         }
     }
     setBackground(backgroundImage) {
@@ -120,6 +113,7 @@ class Frame {
         bground.setAttribute('href', "img/" + backgroundImage);
         let itm = document.getElementById("menuBack")
         itm.style.visibility = 'hidden'
+        toImage(this.svgid, this.backgroundImage,this.id*310); 
     }
     setRobot(id) {
         if (this.robNum < 2) {
@@ -135,11 +129,13 @@ class Frame {
         }
         let itm = document.getElementById("menuBack")
         itm.style.visibility = 'hidden'
+        toImage(this.svgid, this.backgroundImage,this.id*310); 
     }
     setExpression(expression) {
         selectBot.expression(expression)
         let itm = document.getElementById("menu")
         itm.style.visibility = 'hidden'
+        toImage(this.svgid, this.backgroundImage,this.id*310); 
     }
     setText(e, x, y) {
         console.log(x, y)
@@ -173,31 +169,16 @@ class Frame {
         }
         speechBubble.group.setAttribute("transform", "translate(" + xPos + "," + this.bubbleYPos + ")")
         this.bubbleYPos += speechBubble.group.getBBox().height + 20
+        toImage(this.svgid, this.backgroundImage,this.id*310); 
     }
-
-    save() {
-        toImage(this.svgid, this.backgroundImage);
-        //     console.log("here",this.backgroundImage)
-        //     var svgString = new XMLSerializer().serializeToString(document.getElementById(this.svgid));
-        //     var canvas = document.getElementById("canvas");
-        //     var ctx = canvas.getContext("2d");
-        //     ctx.clearRect(0, 0, canvas.width, canvas.height);
-        //     var DOMURL = self.URL || self.webkitURL || self;
-        //     var img = new Image();
-        //     var svg = new Blob([svgString], {type: "image/svg+xml;charset=utf-8"});
-        //     var url = DOMURL.createObjectURL(svg);
-        //     img.onload = function() {
-        //         var bgImg = new Image();
-        //         bgImg.src = 'img/kitchen.png';//+this.backgroundImage;
-        //         let ratio = canvas.width/bgImg.width
-        //         let height = bgImg.height* ratio
-        //         ctx.drawImage(bgImg, 0, 0,540,height);
-        //         ctx.drawImage(img, 0, 0);
-        //     };
-        //     img.src = url;        
-    }
-
 }
 
+function save(){
+    var imgAsDataURL = mainCanvas.toDataURL("image/png", 1.0).replace("image/png", "image/octet-stream");
+    var link = document.createElement('a');
+    link.href = imgAsDataURL
+    link.download = "mypainting.png";
+    link.click();    
+}
 
 console.log("frame js loded")
