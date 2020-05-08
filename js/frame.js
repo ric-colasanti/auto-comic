@@ -64,7 +64,7 @@ function toImage(svgId, backgroundImage, ypos) {
         let ratio = canvas.width / bgImg.width
         let height = bgImg.height * ratio
         ctx.drawImage(bgImg, 0, 0, 540, height);
-        ctx.drawImage(img, -1, -1);
+        ctx.drawImage(img, -3, -3);
         mainCtx.drawImage(canvas, 0, ypos);
     };
     img.src = url;
