@@ -177,7 +177,7 @@ function save(){
     var imgAsDataURL = mainCanvas.toDataURL("image/png", 1.0).replace("image/png", "image/octet-stream");
     var link = document.createElement('a');
     link.href = imgAsDataURL
-    link.download = "mypainting.png";
+    link.download = "mycomic.png";
     link.click();    
 }
 
