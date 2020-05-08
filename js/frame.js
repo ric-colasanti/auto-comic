@@ -14,7 +14,9 @@ function makeFrameClick(id) {
         let xpos = e.pageX - document.body.scrollLeft;
         let ypos = e.pageY - document.body.scrollTop;
         console.log(xpos, ypos)
-        let itm = document.getElementById("menuBack")
+        let itm = document.getElementById("menu")
+        itm.style.visibility = 'hidden'
+        itm = document.getElementById("menuBack")
         itm.style.visibility = 'visible'
         itm.style.top = ypos - 20 + 'px'
         itm.style.left = xpos - 20 + 'px'
@@ -32,7 +34,9 @@ function makeClick(bot) {
         let xpos = e.pageX - document.body.scrollLeft;
         let ypos = e.pageY - document.body.scrollTop;
         console.log(xpos, ypos)
-        let itm = document.getElementById("menu")
+        let itm = document.getElementById("menuBack")
+        itm.style.visibility = 'hidden'
+        itm = document.getElementById("menu")
         itm.style.visibility = 'visible'
         itm.style.top = ypos - 20 + 'px'
         itm.style.left = xpos - 20 + 'px'
