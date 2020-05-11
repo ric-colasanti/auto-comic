@@ -5,32 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SVGobjects</title>
     <link rel="shortcut icon" href="img/Robot-icon.png">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script> <style>
+
+    </style>
 </head>
 <body>
-    <svg id="svg01" width="540" height="300">
-    </svg>
+  <div width= 300px height=400px>
+    <ul class="nav nav-pills">
+      <li class="nav-item">
+        <a class="nav-link " href="#">Active</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Dropdown</a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="#">Link 1</a>
+          <a class="dropdown-item" href="#">Link 2</a>
+          <a class="dropdown-item" href="#">Link 3</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Disabled</a>
+      </li>
+    </ul> 
+</div>
 </body>
-<script>
-class SVG{
-  constructor(elementName,id) {
-    this.element = document.createElementNS('http://www.w3.org/2000/svg', elementName);
-    this.id = id
-    this.clickFunction = function(itm){console.log(itm.id)};
-  }
-  addClickFunction(fun){
-      this.clickFunction = fun
-  }
-  click(){
-        this.clickFunction(this)
-  }
-}
-test1 = new SVG('g',"test1")
-test1.click()
-test2 = new SVG('g',"test2")
-test2.click()
-test1.
-</script>
+
 
 </html>
