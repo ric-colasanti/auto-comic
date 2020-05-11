@@ -115,7 +115,7 @@
             border: solid;
             border-width: 0px;
             border-color: #ddd;
-            
+
             border-right-width: 0.5px;
             border-bottom-width: 0.5px;
             border-radius: 0px 0px 15px 0px;
@@ -136,7 +136,16 @@
             display: none;
         }
 
- 
+        .flex-container {
+            display: flex;
+        }
+
+        .col-flex {
+            background-color: #fff;
+            margin: 2px;
+            padding: 2px;
+            width: 50%;
+        }
     </style>
 </head>
 
@@ -178,55 +187,59 @@
 
 
 
-
-    <div style="width:540px">
-        <div class="navbar" style="width: 100%;">
-            <a onclick="save()"> Save</a>
-            <a onclick="frames[active].init()">Clear</a>
-            <div class="dropdown">
-                <button class="dropbtn">Background
-                    <i class="fa fa-caret-down"></i>
-                </button>
-                <div class="dropdown-content">
-                    <a onclick="frames[active].setBackground('kitchen.png')">Kitchen</a>
-                    <a onclick="frames[active].setBackground('living.jpg')">Living room</a>
+    <div class="flex-container">
+        <div class="col-flex">
+            <div style="width: 540px;margin: auto;">
+                <div class="navbar" style="width: 100%;">
+                    <a onclick="save()"> Save</a>
+                    <a onclick="frames[active].init()">Clear</a>
+                    <div class="dropdown">
+                        <button class="dropbtn">Background
+                            <i class="fa fa-caret-down"></i>
+                        </button>
+                        <div class="dropdown-content">
+                            <a onclick="frames[active].setBackground('kitchen.png')">Kitchen</a>
+                            <a onclick="frames[active].setBackground('living.jpg')">Living room</a>
+                        </div>
+                    </div>
+                    <div class="dropdown">
+                        <button class="dropbtn">Robots
+                            <i class="fa fa-caret-down"></i>
+                        </button>
+                        <div class="dropdown-content">
+                            <a onclick="frames[active].setRobot('red')">Red</a>
+                            <a onclick="frames[active].setRobot('blue')">Blue</a>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="dropdown">
-                <button class="dropbtn">Robots
-                    <i class="fa fa-caret-down"></i>
-                </button>
-                <div class="dropdown-content">
-                    <a onclick="frames[active].setRobot('red')">Red</a>
-                    <a onclick="frames[active].setRobot('blue')">Blue</a>
+                <div id="panel1" class="tabcontent">
+                    <svg id="tsvg01" width="535" height="300" style="border-style: solid;"></svg>
                 </div>
+
+                <div id="panel2" class="tabcontent">
+                    <svg id="tsvg02" width="535" height="300" style="border-style: solid;"></svg>
+                </div>
+
+                <div id="panel3" class="tabcontent">
+                    <svg id="tsvg03" width="535" height="300" style="border-style: solid;"></svg>
+                </div>
+
+                <div id="panel4" class="tabcontent">
+                    <svg id="tsvg04" width="535" height="300" style="border-style: solid;"></svg>
+                </div>
+
+                <button class="tablink" onclick="openCity('panel1', this,0)" id="defaultOpen">Panel 1</button>
+                <button class="tablink" onclick="openCity('panel2', this,1)">Panel 2</button>
+                <button class="tablink" onclick="openCity('panel3', this,2)">Panel 3</button>
+                <button class="tablink" onclick="openCity('panel4', this,3)">Panel 4</button>
+
+
             </div>
         </div>
-        <div id="panel1" class="tabcontent">
-            <svg id="tsvg01" width="535" height="300" style="border-style: solid;"></svg>
+        <div class="col-flex">
+            <img src="img/instructions.png" style="width: 520px;margin: auto;">
         </div>
-
-        <div id="panel2" class="tabcontent">
-            <svg id="tsvg02" width="535" height="300" style="border-style: solid;"></svg>
-        </div>
-
-        <div id="panel3" class="tabcontent">
-            <svg id="tsvg03" width="535" height="300" style="border-style: solid;"></svg>
-        </div>
-
-        <div id="panel4" class="tabcontent">
-            <svg id="tsvg04" width="535" height="300" style="border-style: solid;"></svg>
-        </div>
-
-        <button class="tablink" onclick="openCity('panel1', this,0)" id="defaultOpen">Panel 1</button>
-        <button class="tablink" onclick="openCity('panel2', this,1)">Panel 2</button>
-        <button class="tablink" onclick="openCity('panel3', this,2)">Panel 3</button>
-        <button class="tablink" onclick="openCity('panel4', this,3)">Panel 4</button>
-
-
-
     </div>
-</div>
 
     <!-- <p>This work took insparation from <a href="https://www.kesiev.com/stripthis/">Strip this</a></p>
 <p>A large part of the SVG coding for the Robots was taken from <a href="https://codepen.io/wattenberger/pen/Bksoc">Wattenberger</a>. Many thanks. </p>
@@ -278,7 +291,6 @@
     var clickon = function () {
         console.log(active)
     }
-
 </script>
 
 </html>
