@@ -71,10 +71,15 @@ function toImage(svgId, backgroundImage, ypos) {
 }
 class Frame {
     constructor(svgid, id) {
-        this.robNum = 0;
+        ;
         this.svgid = svgid;
         console.log(svgid, this.svgid);
         this.id = id;
+       
+    }
+
+    init() {
+        this.robNum = 0
         this.robots = {
             red: {
                 order: 0,
@@ -90,9 +95,6 @@ class Frame {
         this.robots.red.bot.robotGroup.addEventListener("click", makeClick(this.robots.red.bot))
         this.robots.blue.bot.robotGroup.addEventListener("click", makeClick(this.robots.blue.bot))
         this.bubbleYPos = 10;
-    }
-
-    init() {
         var elm = document.getElementById(this.svgid);
         if (elm != null) {
             while (elm.firstChild) {
