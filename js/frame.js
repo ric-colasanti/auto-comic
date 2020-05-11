@@ -101,7 +101,7 @@ class Frame {
 
             this.frame = SVG("g");
             var bground = SVG("image")
-            this.backgroundImage = "living.jpg";
+            this.backgroundImage = "bground.png";
             bground.setAttribute('href', "img/" + this.backgroundImage);
             bground.setAttribute("width", "100%")
             bground.setAttribute("id", "bgrng" + this.id)
