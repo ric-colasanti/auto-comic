@@ -1,6 +1,8 @@
 var active = null
 var frames = []
 var selectBot
+var selectBubble = null;
+var activeBubble = null
 var mainCanvas = document.createElement('canvas');
 mainCanvas.width = 540;
 mainCanvas.height =4*310;
@@ -13,7 +15,6 @@ function makeFrameClick(id) {
     return function (e) {
         let xpos = e.pageX - document.body.scrollLeft;
         let ypos = e.pageY - document.body.scrollTop;
-        console.log(xpos, ypos)
         let itm = document.getElementById("menu")
         itm.style.visibility = 'hidden'
         itm = document.getElementById("menuBack")
@@ -33,7 +34,6 @@ function makeClick(bot) {
         var rect = e.target.getBoundingClientRect();
         let xpos = e.pageX - document.body.scrollLeft;
         let ypos = e.pageY - document.body.scrollTop;
-        console.log(xpos, ypos)
         let itm = document.getElementById("menuBack")
         itm.style.visibility = 'hidden'
         itm = document.getElementById("menu")
@@ -41,6 +41,28 @@ function makeClick(bot) {
         itm.style.top = ypos - 20 + 'px'
         itm.style.left = xpos - 20 + 'px'
         selectBot = bot
+    }
+
+}
+
+function makeBubbleText(bubble) {
+    //console.log("make",bot)
+    return function (e) {
+        var rect = e.target.getBoundingClientRect();
+        let xpos = e.pageX - document.body.scrollLeft;
+        let ypos = e.pageY - document.body.scrollTop;
+        console.log(xpos, ypos)
+        let itm = document.getElementById("menuBack")
+        itm.style.visibility = 'hidden'
+        itm = document.getElementById("menu")
+        itm.style.visibility = 'hidden'
+        itm = document.getElementById("edittextarea");
+        itm.value=bubble.text;
+        itm = document.getElementById("edittext")
+        itm.style.visibility = 'visible'
+        itm.style.top = ypos - 20 + 'px'
+        itm.style.left = xpos - 20 + 'px'
+        selectBubble = bubble
     }
 
 }
@@ -143,8 +165,7 @@ class Frame {
         itm.style.visibility = 'hidden'
         toImage(this.svgid, this.backgroundImage,this.id*310); 
     }
-    setText(e, x, y) {
-        console.log(x, y)
+    setText(e) {
         let itm = document.getElementById("textarea")
         itm.value = ""
         itm.focus();
@@ -165,7 +186,6 @@ class Frame {
     setBubble() {
         let itm = document.getElementById("text")
         itm.style.visibility = 'hidden'
-
         itm = document.getElementById("textarea")
         var speechBubble = new SpeechBubble(itm.value, selectBot.bodyColor)
         this.frame.appendChild(speechBubble.group)
@@ -173,8 +193,47 @@ class Frame {
         if (selectBot.pos == 1) {
             xPos = 190
         }
+        speechBubble.xpos = xPos
         speechBubble.group.setAttribute("transform", "translate(" + xPos + "," + this.bubbleYPos + ")")
+        speechBubble.ypos = this.bubbleYPos; 
         this.bubbleYPos += speechBubble.group.getBBox().height + 20
+        toImage(this.svgid, this.backgroundImage,this.id*310); 
+        speechBubble.group.addEventListener("click", makeBubbleText(speechBubble))
+        if(activeBubble != null){
+            console.log(activeBubble)
+            activeBubble.next = speechBubble;
+            console.log(activeBubble.xpos)
+            console.log("next",activeBubble.next.xpos)
+        }
+        activeBubble= speechBubble;
+
+    }
+
+    editBubble() {
+        let x = selectBubble.xpos;
+        let y = selectBubble.ypos;
+        let itm = document.getElementById("edittext")
+        itm.style.visibility = 'hidden'
+
+        itm = document.getElementById("edittextarea")
+        var speechBubble = new SpeechBubble(itm.value, selectBubble.color)
+        speechBubble.xpos = x
+        speechBubble.ypos = y;
+        this.frame.appendChild(speechBubble.group)
+        speechBubble.group.setAttribute("transform", "translate(" + x+ "," + y+ ")")
+        speechBubble.group.addEventListener("click", makeBubbleText(speechBubble))
+        speechBubble.next = selectBubble.next;
+        let dif = speechBubble.group.getBBox().height  - selectBubble.group.getBBox().height
+        this.bubbleYPos += dif
+        let next = speechBubble.next
+        while( next != null){
+            console.log("*",next.ypos)
+            next.ypos += dif
+            console.log(next.ypos)
+            next.group.setAttribute("transform", "translate(" + next.xpos+ "," + next.ypos+ ")")
+            next = next.next;
+        }
+        selectBubble.clear()
         toImage(this.svgid, this.backgroundImage,this.id*310); 
     }
 }

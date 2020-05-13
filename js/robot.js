@@ -369,7 +369,11 @@ Robot.prototype.expression = function (expression) {
 
 SpeechBubble = function (text, color) {
 
-
+    this.xpos = 0;
+    this.ypos = 0;
+    this.next = null;
+    this.color = color;
+    this.text = text;
     words = text.split(" ")
     var lines = []
     var l = 0
@@ -397,7 +401,7 @@ SpeechBubble = function (text, color) {
     this.group.appendChild(frame)
     var yPos = 20
     for (l in lines) {
-        var speech = SVG("text")
+        speech = SVG("text")
         speech.setAttribute("font-family","sans-serif")
         speech.setAttribute("font-size","12px")
         speech.setAttribute("x", 10)
@@ -412,3 +416,11 @@ SpeechBubble = function (text, color) {
 
 }
 
+SpeechBubble.prototype.clear= function(){
+    elm = this.group
+    if (elm != null) {
+        while (elm.firstChild) {
+            elm.removeChild(elm.firstChild);
+        }
+    }
+}
