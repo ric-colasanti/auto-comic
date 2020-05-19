@@ -34,8 +34,6 @@ function makeClick(bot) {
         var rect = e.target.getBoundingClientRect();
         let xpos = e.pageX - document.body.scrollLeft;
         let ypos = e.pageY - document.body.scrollTop;
-        let itm = document.getElementById("menuBack")
-        itm.style.visibility = 'hidden'
         itm = document.getElementById("menu")
         itm.style.visibility = 'visible'
         itm.style.top = ypos - 20 + 'px'
@@ -95,9 +93,9 @@ class Frame {
     constructor(svgid, id) {
         ;
         this.svgid = svgid;
-        console.log(svgid, this.svgid);
         this.id = id;
-       
+        this.startBubble=null;   
+        this.robList = [];    
     }
 
     init() {
@@ -106,12 +104,12 @@ class Frame {
             red: {
                 order: 0,
                 notUsed: true,
-                bot: new Robot("#94627D", "#657F8E", "thin")
+                bot: new Robot("red","#94627D", "#657F8E", "thin")
             },
             blue: {
                 order: 0,
                 notUsed: true,
-                bot: new Robot("#6469AD", "#009a9E", "fat")
+                bot: new Robot("blue","#6469AD", "#009a9E", "fat")
             },
         }
         this.robots.red.bot.robotGroup.addEventListener("click", makeClick(this.robots.red.bot))
@@ -139,8 +137,6 @@ class Frame {
         this.backgroundImage = backgroundImage;
         let bground = document.getElementById("bgrng" + this.id)
         bground.setAttribute('href', "img/" + backgroundImage);
-        let itm = document.getElementById("menuBack")
-        itm.style.visibility = 'hidden'
         toImage(this.svgid, this.backgroundImage,this.id*310); 
     }
     setRobot(id) {
@@ -153,10 +149,9 @@ class Frame {
                 this.robots[id].bot.position(height, 10 + (this.robNum * 360), 300)
                 this.robNum += 1;
                 this.robots[id].notUsed = false;
+                this.robList.push(this.robots[id])
             }
         }
-        let itm = document.getElementById("menuBack")
-        itm.style.visibility = 'hidden'
         toImage(this.svgid, this.backgroundImage,this.id*310); 
     }
     setExpression(expression) {
@@ -187,7 +182,9 @@ class Frame {
         let itm = document.getElementById("text")
         itm.style.visibility = 'hidden'
         itm = document.getElementById("textarea")
-        var speechBubble = new SpeechBubble(itm.value, selectBot.bodyColor)
+        var speechBubble = new SpeechBubble(itm.value, selectBot.bodyColor,selectBot.id)
+        speechBubble.robot = {bot:selectBot,num:selectBot.bubbles.length};
+        selectBot.bubbles.push(speechBubble)
         this.frame.appendChild(speechBubble.group)
         var xPos = 160
         if (selectBot.pos == 1) {
@@ -205,6 +202,9 @@ class Frame {
             console.log(activeBubble.xpos)
             console.log("next",activeBubble.next.xpos)
         }
+        if(this.startBubble==null){
+            this.startBubble = speechBubble;
+        }
         activeBubble= speechBubble;
 
     }
@@ -216,9 +216,11 @@ class Frame {
         itm.style.visibility = 'hidden'
 
         itm = document.getElementById("edittextarea")
-        var speechBubble = new SpeechBubble(itm.value, selectBubble.color)
+        var speechBubble = new SpeechBubble(itm.value, selectBubble.color,selectBubble.robot.id)
         speechBubble.xpos = x
         speechBubble.ypos = y;
+        speechBubble.robot = selectBubble.robot;
+        speechBubble.robot.bot.bubbles[selectBubble.robot.num]=speechBubble;
         this.frame.appendChild(speechBubble.group)
         speechBubble.group.setAttribute("transform", "translate(" + x+ "," + y+ ")")
         speechBubble.group.addEventListener("click", makeBubbleText(speechBubble))
@@ -233,8 +235,41 @@ class Frame {
             next.group.setAttribute("transform", "translate(" + next.xpos+ "," + next.ypos+ ")")
             next = next.next;
         }
+        if(selectBubble == this.frame.startBubble){
+            this.frame.startBubble = speechBubble;
+        }
         selectBubble.clear()
         toImage(this.svgid, this.backgroundImage,this.id*310); 
+    }
+
+    toJson(){
+        let jFrame = {backgroundImage:this.backgroundImage}
+        let bubble = this.startBubble;
+        let i = 0
+        let j = 0
+        let bots = []
+        console.log(this.robList.length)
+        for(i=0;i<this.robList.length;i++){
+            let robot = this.robList[i].bot;
+            console.log(robot.id)
+            let bot = {robotId:robot.id}
+            console.log(robot.id)
+            let expressions = []
+            for(j=0; j<robot.toString.length;j++){
+                expressions.push(robot.toString[j]);
+                console.log(robot.toString[j])
+            }
+            bots.push({robotId:bot,expressions :expressions})
+        }
+        let bubbles = []
+        while( bubble!=null){
+            console.log(bubble.robotId,bubble.text)
+            bubbles.push({robotId:bubble.robotId, text:bubble.text})
+            bubble = bubble.next;
+        }
+        jFrame.bots = bots;
+        jFrame.bubbles = bubbles;
+        return jFrame;
     }
 }
 
@@ -244,6 +279,10 @@ function save(){
     link.href = imgAsDataURL
     link.download = "mycomic.png";
     link.click();    
+}
+
+function save2(){
+    console.log(frames[active].toJson());
 }
 
 console.log("frame js loded")

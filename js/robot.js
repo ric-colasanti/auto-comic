@@ -192,11 +192,13 @@ Head.prototype.sadLids = function () {
 }
 
 
-function Robot(bodyColor, armColor, height) {
-
+function Robot(id,bodyColor, armColor, height) {
+    this.id = id;
     this.bodyColor = bodyColor;
     this.armColor = armColor;
     this.pos = 0;
+    this.toString = []
+    this.bubbles=[]
 
     function createArm(bodyColor, armcolor) {
         armGroup = SVG("g");
@@ -284,28 +286,12 @@ function Robot(bodyColor, armColor, height) {
         return torsoGroup
     }
 
-
-
-
-
     this.head = new Head(this.bodyColor, this.armcolor);
     var rightArmGroup = createArm(this.bodyColor, this.armcolor);
     var leftArmGroup = createArm(this.bodyColor, this.armcolor);
     var rightLegGroup = createLeg(this.bodyColor, this.armcolor);
     var leftLegGroup = createLeg(this.bodyColor, this.armcolor);
     var torsoGroup = createTorso(this.bodyColor, this.armcolor)
-
-
-    // //head.tiltRight()
-    // //head.eyesRight()
-    // //head.eyesLeft()
-    // //head.eyesDown()
-    // //head.eyesup()
-    // //head.noLids()
-    // //head.sadLids()
-    //head.lids()
-    // //head.sad()
-    // //head.smile()
 
     leftArmGroup.setAttribute("transform", "translate(160,0) scale(-1,1)");
     leftLegGroup.setAttribute("transform", "translate(160,0) scale(-1,1)");
@@ -332,7 +318,7 @@ Robot.prototype.position = function (pos, xPos, floor) {
     this.robotGroup.setAttribute("transform", "translate(" + xPos + "," + yPos + ")")
 }
 Robot.prototype.expression = function (expression) {
-
+    this.toString.push(expression)
     switch (expression) {
         case "happy":
             this.head.smile();
@@ -367,13 +353,15 @@ Robot.prototype.expression = function (expression) {
     }
 }
 
-SpeechBubble = function (text, color) {
-
+SpeechBubble = function (text, color,robotId) {
+    //console.log(robot.id,robot.bodyColor)
     this.xpos = 0;
     this.ypos = 0;
     this.next = null;
     this.color = color;
     this.text = text;
+    this.robot = null;
+    this.robotId = robotId;
     words = text.split(" ")
     var lines = []
     var l = 0
