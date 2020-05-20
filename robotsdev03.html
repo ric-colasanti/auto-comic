@@ -174,8 +174,8 @@
         }
 
         /* Set a style for all buttons */
-        button {
-            background-color: #4CAF50;
+        .saveButton {
+            background-color: rgb(67, 99, 68);
             color: white;
             padding: 14px 20px;
             margin: opx 0;
@@ -185,7 +185,7 @@
             opacity: 0.9;
         }
 
-        button:hover {
+        .saveButton:hover {
             opacity: 1;
         }
 
@@ -353,10 +353,10 @@
                                 <hr>
 
                                 <label for="email"><b>Email</b></label>
-                                <input type="text" placeholder="Enter Email" name="email" required>
+                                <input id="email" type="text" placeholder="Enter Email" name="email" required>
 
-                                <label for="psw"><b>Name</b></label>
-                                <input type="text" placeholder="Enter name" name="psw" required>
+                                <label for="name"><b>Name</b></label>
+                                <input id="name" type="text" placeholder="Enter name" name="name" required>
 
 
                                 <p>By  entering the competition you are agreeing to our <a href="#" style="color:dodgerblue">Terms &
@@ -364,7 +364,7 @@
                                 </p>
 
                                 <div class="clearfix">
-                                    <button type="button" onclick="save()"> Save</button>
+                                    <button class="saveButton" type="button" onclick="saveAll()"> Save</button>
                                 </div>
                             </div>
                         </form>

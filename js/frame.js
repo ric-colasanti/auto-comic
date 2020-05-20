@@ -49,7 +49,7 @@ function makeBubbleText(bubble) {
         var rect = e.target.getBoundingClientRect();
         let xpos = e.pageX - document.body.scrollLeft;
         let ypos = e.pageY - document.body.scrollTop;
-        console.log(xpos, ypos)
+        //console.log(xpos, ypos)
         let itm = document.getElementById("menuBack")
         itm.style.visibility = 'hidden'
         itm = document.getElementById("menu")
@@ -197,10 +197,10 @@ class Frame {
         toImage(this.svgid, this.backgroundImage,this.id*310); 
         speechBubble.group.addEventListener("click", makeBubbleText(speechBubble))
         if(activeBubble != null){
-            console.log(activeBubble)
+            //console.log(activeBubble)
             activeBubble.next = speechBubble;
-            console.log(activeBubble.xpos)
-            console.log("next",activeBubble.next.xpos)
+            //console.log(activeBubble.xpos)
+            //console.log("next",activeBubble.next.xpos)
         }
         if(this.startBubble==null){
             this.startBubble = speechBubble;
@@ -229,9 +229,9 @@ class Frame {
         this.bubbleYPos += dif
         let next = speechBubble.next
         while( next != null){
-            console.log("*",next.ypos)
+            //console.log("*",next.ypos)
             next.ypos += dif
-            console.log(next.ypos)
+            //console.log(next.ypos)
             next.group.setAttribute("transform", "translate(" + next.xpos+ "," + next.ypos+ ")")
             next = next.next;
         }
@@ -248,27 +248,28 @@ class Frame {
         let i = 0
         let j = 0
         let bots = []
-        console.log(this.robList.length)
+        //console.log(this.robList.length)
         for(i=0;i<this.robList.length;i++){
             let robot = this.robList[i].bot;
-            console.log(robot.id)
+            //console.log(robot.id)
             let bot = {robotId:robot.id}
-            console.log(robot.id)
+            //console.log(robot.id)
             let expressions = []
             for(j=0; j<robot.toString.length;j++){
                 expressions.push(robot.toString[j]);
-                console.log(robot.toString[j])
+               // console.log(robot.toString[j])
             }
             bots.push({robotId:bot,expressions :expressions})
         }
         let bubbles = []
         while( bubble!=null){
-            console.log(bubble.robotId,bubble.text)
+            //console.log(bubble.robotId,bubble.text)
             bubbles.push({robotId:bubble.robotId, text:bubble.text})
             bubble = bubble.next;
         }
         jFrame.bots = bots;
         jFrame.bubbles = bubbles;
+        
         return jFrame;
     }
 }
@@ -281,8 +282,20 @@ function save(){
     link.click();    
 }
 
-function save2(){
-    console.log(frames[active].toJson());
+function saveAll(){
+    itm = document.getElementById("email")
+    let email = itm.value
+    itm = document.getElementById("name")
+    let name = itm.value
+    var comic={name:name, emeil:emeil}
+    comic.pic = mainCanvas.toDataURL("image/png", 1.0).replace("image/png", "image/octet-stream");
+    comic.frames = []
+    let i=0
+    for(i=0;i<4;i++){
+        comic.frames.push(frames[i].toJson())
+    }
+    console.log(comic);
+    //save()
 }
 
-console.log("frame js loded")
+//console.log("frame js loded")

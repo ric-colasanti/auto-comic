@@ -23,7 +23,7 @@ function describeArc(x, y, radius, startAngle, endAngle) {
         "L", start.x, start.y
     ].join(" ");
 
-    console.log(d + "z");
+    //console.log(d + "z");
 
     return d + "z";
 }
