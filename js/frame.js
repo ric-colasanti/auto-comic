@@ -17,8 +17,6 @@ function makeFrameClick(id) {
         let ypos = e.pageY - document.body.scrollTop;
         let itm = document.getElementById("menu")
         itm.style.visibility = 'hidden'
-        itm = document.getElementById("menuBack")
-        itm.style.visibility = 'visible'
         itm.style.top = ypos - 20 + 'px'
         itm.style.left = xpos - 20 + 'px'
         active = id
