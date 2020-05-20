@@ -287,7 +287,7 @@ function saveAll(){
     let email = itm.value
     itm = document.getElementById("name")
     let name = itm.value
-    var comic={name:name, emeil:emeil}
+    var comic={name:name, emeil:email}
     comic.pic = mainCanvas.toDataURL("image/png", 1.0).replace("image/png", "image/octet-stream");
     comic.frames = []
     let i=0
