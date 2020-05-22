@@ -48,8 +48,7 @@ function makeBubbleText(bubble) {
         let xpos = e.pageX - document.body.scrollLeft;
         let ypos = e.pageY - document.body.scrollTop;
         //console.log(xpos, ypos)
-        let itm = document.getElementById("menuBack")
-        itm.style.visibility = 'hidden'
+ 
         itm = document.getElementById("menu")
         itm.style.visibility = 'hidden'
         itm = document.getElementById("edittextarea");
